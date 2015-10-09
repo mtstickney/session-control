@@ -1,0 +1,24 @@
+* Session-Control
+  Session-Control is supplementary [[https://github.com/fukamachi/lack][Lack]] middleware for controlling
+  =lack.middleware.session= sessions. This middleware provides
+  functions for controlling the session from inside a lack app.
+
+  /Beta Warning: still in development, APIs may change. This module
+  currently relies on fixes to lack that are not yet in upstream./
+
+* Usage
+  Just include =session-control:*session-control-middleware*= in the
+  middleware stack:
+  : (lack:builder
+  :   :session
+  :   *session-control-middleware*
+  :   *app*)
+
+  Note that Session-Control needs to come after the session
+  middleware, since it inspects and modifies the environment values
+  that middleware creates.
+
+  Calling =(destroy-session)= will now cause the session to be
+  destroyed and the session cookie to be expired; calling
+  =(change-session-id)= will cause the current session to be given a
+  new id (also updating the client's session cookie).
